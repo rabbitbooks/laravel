@@ -2,52 +2,75 @@
 
 namespace App\Models;
 
+use App\Models\Categories;
 use Illuminate\Support\Str;
-use App\Models\Category;
 
 class News
 {
-    private static $news = [
-      [
+    private Categories $category;
+
+    private $news = [
+        '1' => [
             'id' => 1,
             'title' => 'Новость 1',
             'text' => 'А у нас новость 1 и она очень хорошая!',
-            'slug' => 'novost-1',
+            'isPrivate' => false,
             'category_id' => 1
         ],
-        [
+        '2' => [
             'id' => 2,
             'title' => 'Новость 2',
-            'slug' => 'novost-2',
-            'text' => 'А тут плохие новости (((',
-            'category_id' => 2
+            'text' => 'А у нас новость 2 и она очень очень хорошая!',
+            'isPrivate' => false,
+            'category_id' => 1
         ],
-        [
+        '3' => [
             'id' => 3,
             'title' => 'Новость 3',
-            'slug' => 'novost-3',
-            'text' => 'Просто новость',
+            'text' => 'А тут плохие новости(((',
+            'isPrivate' => true,
+            'category_id' => 2
+        ],
+        '4' => [
+            'id' => 4,
+            'title' => 'Новость 4',
+            'text' => 'А тут плохие плохие новости(((',
+            'isPrivate' => false,
             'category_id' => 2
         ],
     ];
 
-    public static function getNews()
+
+    public function __construct(Categories $category)
     {
-        return static::$news;
+        $this->category = $category;
     }
 
-    public static function sortCategoriesById()
-    {
-        $categoriesById = Category::renameArrayKeysByKey('id');
 
-        return isset($categoriesById) && !empty($categoriesById) ? $categoriesById : [];
+    public function getNews()
+    {
+
+        return $this->news;
+
     }
 
-    public static function getNewsBySlug($slug)
-    {
-        $news = static::getNews();
-        $newsBySlag = array_combine(array_column($news, 'slug'), array_values($news));
+    public function getNewsByCategorySlug($slug) {
+        $id = $this->category->getCategoryIdBySlug($slug);
+        return $this->getNewsByCategoryId($id);
+    }
 
-        return array_key_exists($slug, $newsBySlag) ? $newsBySlag[$slug] : [];
+    public function getNewsByCategoryId($id) {
+        $news = [];
+        foreach ($this->getNews() as $item) {
+            if ($item['category_id'] == $id) {
+                $news[] = $item;
+            }
+        }
+        return $news;
+    }
+
+    public function getNewsById($id)
+    {
+          return $this->getNews()[$id] ?? [];
     }
 }
