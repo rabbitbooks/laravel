@@ -40,7 +40,8 @@ Route::name('admin.')
         Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::get('/test1', [AdminController::class, 'test1'])->name('test1');
         Route::get('/test2', [AdminController::class, 'test2'])->name('test2');
-        Route::get('/add-news', [AdminController::class, 'addNews'])->name('addNews');
+        Route::match(['get', 'post'],'/create', [AdminController::class, 'create'])->name('create');
+
     });
 
 
@@ -49,4 +50,3 @@ Route::view('/about', 'about')->name('about');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

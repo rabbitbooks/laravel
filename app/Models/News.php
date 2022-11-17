@@ -50,6 +50,7 @@ class News
     public function getNews()
     {
 
+        //TODO вернуть массив новостей из файла
         return $this->news;
 
     }

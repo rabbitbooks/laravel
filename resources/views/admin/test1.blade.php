@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Админка')
+@section('title', 'test 1')
 
 @section('menu')
     @include('admin.menu')
@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2>Админка главная</h2>
+                        <p>Тест 1</p>
                     </div>
                 </div>
             </div>

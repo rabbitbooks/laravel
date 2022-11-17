@@ -15,6 +15,12 @@ class Categories
             'title' => 'Политика',
             'slug' => 'politics'
         ],
+        3 => [
+            'id' => 3,
+            'title' => 'Covid19',
+            'slug' => 'covid'
+        ],
+
     ];
 
     public function getCategories() {
