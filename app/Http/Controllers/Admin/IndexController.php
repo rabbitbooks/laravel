@@ -17,16 +17,17 @@ class IndexController extends Controller
     public function create(Request $request, Categories $categories) {
         if ($request->isMethod('post')) {
             $request->flash();
-            $arr = $request->except('_token');
+            $input = $request->except('_token');
 
-            File::put(storage_path() . '/news.json', json_encode($arr, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            $news = json_decode(File::get(storage_path() . '/news.json'), true);
+            $arr['id'] = count($news) + 1;
+            $arr = array_merge($arr, $input);
+            $arr['isPrivate'] = array_key_exists('isPrivate', $arr) ? true : false;
+            $news[] = $arr;
 
-            dd($arr);
+            File::put(storage_path() . '/news.json', json_encode($news, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 
-            //TODO прочитать файл новостей в массив
-            //TODO добавить в массив
-            //TODO сохранить новость в файл в json
-            return redirect()->route('admin.create');
+//            return redirect()->route('admin.create');
         }
 
         return view('admin.create',[
@@ -36,7 +37,6 @@ class IndexController extends Controller
 
     public function test1(News $news)
     {
-
         return response()->json($news->getNews())
             ->header('Content-Disposition', 'attachment; filename = "json.txt"')
             ->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
