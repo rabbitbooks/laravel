@@ -19,27 +19,23 @@ class IndexController extends Controller
     public function create(Request $request, Categories $categories, News $news) {
         if ($request->isMethod('post')) {
             $request->flash();
-            $arr = $request->except('_token');
+            $arr = $request->except('_token', 'category_id');
 
             $url = null;
             if ($request->file('image')) {
                 $path = Storage::putFile('public/img', $request->file('image'));
                 $url = Storage::url($path);
+                dd($url);
             }
-            //DB::insert([]);
-            $data = $news->getNews();
 
-            $data[] = $arr;
+            $data = [];
+            $data = array_merge($data, $arr);
+            $data['isPrivate'] = isset($arr['isPrivate']);
+            $data['image'] = $url;
 
-            $id = array_key_last($data);
+            $id = DB::table('news')->insertGetId($data);
 
-            $data[$id]['id'] = $id;
-            $data[$id]['isPrivate'] = isset($arr['isPrivate']);
-            $data[$id]['image'] = $url;
-
-            File::put(storage_path() . '/news.json', json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-
-            return redirect()->route('news.show', $id)->with('success', 'Новость добавлена');
+//            return redirect()->route('news.show', $id)->with('success', 'Новость добавлена');
         }
 
         return view('admin.create',[
