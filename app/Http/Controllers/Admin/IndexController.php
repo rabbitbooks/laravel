@@ -7,6 +7,8 @@ use App\Models\Categories;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
@@ -14,20 +16,30 @@ class IndexController extends Controller
         return view('admin.index');
     }
 
-    public function create(Request $request, Categories $categories) {
+    public function create(Request $request, Categories $categories, News $news) {
         if ($request->isMethod('post')) {
             $request->flash();
-            $input = $request->except('_token');
+            $arr = $request->except('_token');
 
-            $news = json_decode(File::get(storage_path() . '/news.json'), true);
-            $arr['id'] = count($news) + 1;
-            $arr = array_merge($arr, $input);
-            $arr['isPrivate'] = array_key_exists('isPrivate', $arr) ? true : false;
-            $news[] = $arr;
+            $url = null;
+            if ($request->file('image')) {
+                $path = Storage::putFile('public/img', $request->file('image'));
+                $url = Storage::url($path);
+            }
+            //DB::insert([]);
+            $data = $news->getNews();
 
-            File::put(storage_path() . '/news.json', json_encode($news, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            $data[] = $arr;
 
-//            return redirect()->route('admin.create');
+            $id = array_key_last($data);
+
+            $data[$id]['id'] = $id;
+            $data[$id]['isPrivate'] = isset($arr['isPrivate']);
+            $data[$id]['image'] = $url;
+
+            File::put(storage_path() . '/news.json', json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+            return redirect()->route('news.show', $id)->with('success', 'Новость добавлена');
         }
 
         return view('admin.create',[
@@ -37,6 +49,7 @@ class IndexController extends Controller
 
     public function test1(News $news)
     {
+
         return response()->json($news->getNews())
             ->header('Content-Disposition', 'attachment; filename = "json.txt"')
             ->setEncodingOptions(JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);

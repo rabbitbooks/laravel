@@ -24,7 +24,7 @@ Route::name('news.')
     ->prefix('news')
     ->group(function () {
         Route::get('/', [NewsController::class, 'index'])->name('index');
-        Route::get('/one/{id}', [NewsController::class, 'show'])->name('one');
+        Route::get('/one/{id}', [NewsController::class, 'show'])->name('show');
         Route::name('category.')
             ->group(function () {
                 Route::get('/categories', [CategoryController::class, 'index'])->name('index');

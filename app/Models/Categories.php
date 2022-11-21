@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\File;
+
 class Categories
 {
     private $categories = [
@@ -24,7 +26,8 @@ class Categories
     ];
 
     public function getCategories() {
-        return $this->categories;
+        //return $this->categories;
+        return json_decode(File::get(storage_path() . '/category.json'), true);
     }
 
     public function getCategoryNameBySlug($slug) {

@@ -12,14 +12,14 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.create') }}">
+                        <form method="POST" action="{{ route('admin.create') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="newsTitle">Заголовок новости</label>
                                 <input type="text" name="title" id="newsTitle" class="form-control" value="{{ old('title') }}">
 
                                 <label for="newsCategory">Категория новости</label>
-                                <select name="category" id="newsCategory" class="form-control">
+                                <select name="category_id" id="newsCategory" class="form-control">
                                     @foreach($categories as $item)
                                         <option
                                             @if ($item['id'] == old('category')) selected @endif
@@ -39,6 +39,10 @@
                                         name="isPrivate" type="checkbox" value="1">
                                     <label for="newsPrivate">Приватная</label>
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="file" name="image">
                             </div>
 
                             <div class="form-group">
