@@ -1,0 +1,17 @@
+{
+    "1": {
+        "id": 1,
+        "title": "Спорт",
+        "slug": "sport"
+    },
+    "2": {
+        "id": 2,
+        "title": "Политика",
+        "slug": "politics"
+    },
+    "3": {
+        "id": 3,
+        "title": "Covid19",
+        "slug": "covid"
+    }
+}
