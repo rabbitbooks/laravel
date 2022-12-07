@@ -35,7 +35,7 @@ class IndexController extends Controller
 
             $id = DB::table('news')->insertGetId($data);
 
-//            return redirect()->route('news.show', $id)->with('success', 'Новость добавлена');
+            return redirect()->route('news.show', $id)->with('success', 'Новость добавлена');
         }
 
         return view('admin.create',[
