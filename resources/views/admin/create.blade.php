@@ -12,30 +12,31 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.create') }}" enctype="multipart/form-data">
+                        <form method="POST" action="@if (!$news->id){{ route('admin.news.store') }}@else{{ route('admin.news.update', $news) }}@endif" enctype="multipart/form-data">
                             @csrf
+                            @if ($news->id) @method('PUT') @endif
                             <div class="form-group">
                                 <label for="newsTitle">Заголовок новости</label>
-                                <input type="text" name="title" id="newsTitle" class="form-control" value="{{ old('title') }}">
+                                <input type="text" name="title" id="newsTitle" class="form-control" value="{{ old('title') ?? $news->title }}">
 
                                 <label for="newsCategory">Категория новости</label>
                                 <select name="category_id" id="newsCategory" class="form-control">
                                     @foreach($categories as $item)
                                         <option
-                                            @if ($item['id'] == old('category')) selected @endif
-                                            value="{{ $item['id'] }}">{{ $item['title'] }}
+                                            @if ($item->id == old('category_id') ?? $item->id == $news->category_id) selected @endif
+                                            value="{{ $item->id }}">{{ $item['title'] }}
                                         </option>
                                     @endforeach
                                 </select>
 
 
                                 <label for="newsText">Текст новости</label>
-                                <textarea name="text" id="newsText" class="form-control">{{ old('text') }}</textarea>
+                                <textarea name="text" id="newsText" class="form-control">{{ old('text')   ?? $news->text}}</textarea>
 
                                 <div class="form-check">
 
                                     <input
-                                        @if (old('isPrivate')) checked @endif
+                                        @if ($news->isPrivate == 1 || old('isPrivate')) checked @endif
                                         name="isPrivate" type="checkbox" value="1">
                                     <label for="newsPrivate">Приватная</label>
                                 </div>
@@ -46,7 +47,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input class="btn btn-outline-primary" type="submit" value="Добавить новость">
+                                <input class="btn btn-outline-primary" type="submit" value="@if ($news->id){{__('Изменить')}}@else{{__('Добавить')}}@endif новость">
                             </div>
                         </form>
                     </div>

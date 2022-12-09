@@ -15,7 +15,10 @@ class NewsSeeder extends Seeder
      */
     public function run()
     {
+
         DB::table('news')->insert($this->getData());
+
+
     }
 
     private function getData() {
