@@ -11,7 +11,7 @@ class News extends Model
     //protected $primaryKey = 'news_id';
     //public $timestamps = false;
 
-    protected $fillable = ['title', 'text', 'isPrivate', 'category_id'];
+    protected $fillable = ['title', 'text', 'isPrivate', 'category_id', 'image'];
 
 
     public function category() {
