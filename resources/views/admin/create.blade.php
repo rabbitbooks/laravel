@@ -31,7 +31,7 @@
 
 
                                 <label for="newsText">Текст новости</label>
-                                <textarea name="text" id="newsText" class="form-control">{{ old('text')   ?? $news->text}}</textarea>
+                                <textarea name="text" id="newsText" class="form-control">{{ old('text') ?? $news->text}}</textarea>
 
                                 <div class="form-check">
 

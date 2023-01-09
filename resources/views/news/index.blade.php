@@ -22,7 +22,7 @@
                         @empty
                             <p>Нет новостей</p>
                         @endforelse
-                        {{ $news->links() }}
+                        {{ $news->onEachSide(2)->links() }}
 
                     </div>
                 </div>
