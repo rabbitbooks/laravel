@@ -29,7 +29,7 @@ class NewsSeeder extends Seeder
                 'text' => $faker->realText(rand(200,700)),
                 'isPrivate' => $faker->boolean,
                 'image' => null,
-                'category_id' => rand($ids->min()->id, $ids->max()->id),
+                'category_id' => $ids->random()->id,
             ];
         }
         return $data;
