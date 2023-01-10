@@ -17,21 +17,46 @@
                             @if ($news->id) @method('PUT') @endif
                             <div class="form-group">
                                 <label for="newsTitle">Заголовок новости</label>
+                                @if ($errors->has('title'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach($errors->get('title') as $error)
+                                            {{ $error }}<br>
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <input type="text" name="title" id="newsTitle" class="form-control" value="{{ old('title') ?? $news->title }}">
 
                                 <label for="newsCategory">Категория новости</label>
+                                @if ($errors->has('category_id'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach ($errors->get('category_id') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <select name="category_id" id="newsCategory" class="form-control">
                                     @foreach($categories as $item)
                                         <option
                                             @if ($item->id == old('category_id') ?? $item->id == $news->category_id) selected @endif
-                                            value="{{ $item->id }}">{{ $item['title'] }}
+                                            value="{{ $item->id }}">{{ $item->title }}
                                         </option>
+
                                     @endforeach
+                                        <option value="23">error</option>
+
                                 </select>
 
 
                                 <label for="newsText">Текст новости</label>
-                                <textarea name="text" id="newsText" class="form-control">{{ old('text') ?? $news->text}}</textarea>
+                                @if ($errors->has('text'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach ($errors->get('text') as $error)
+                                            {{ $error }}<br>
+                                        @endforeach
+
+                                    </div>
+                                @endif
+                                <textarea name="text" id="newsText" class="form-control">{{ old('text')   ?? $news->text}}</textarea>
 
                                 <div class="form-check">
 
@@ -41,6 +66,15 @@
                                     <label for="newsPrivate">Приватная</label>
                                 </div>
                             </div>
+
+
+                            @if ($errors->has('image'))
+                                <div class="alert alert-danger" role="alert">
+                                    @foreach ($errors->get('image') as $error)
+                                        {{ $error }}
+                                    @endforeach
+                                </div>
+                            @endif
 
                             <div class="form-group">
                                 <input type="file" name="image">

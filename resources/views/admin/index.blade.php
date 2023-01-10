@@ -25,13 +25,6 @@
 
                         @empty
                             <p>Нет новостей</p>
-                         @endforelse
-                        <br>
-                        {{ $news->onEachSide(3)->links() }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @endforelse
 
 @endsection

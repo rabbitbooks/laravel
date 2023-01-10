@@ -26,8 +26,6 @@
                                 <input class="btn btn-outline-primary" type="submit" value="@if ($category->id){{__('Изменить')}}@else{{__('Добавить')}}@endif категорию">
                             </div>
                         </form>
-                        <br>
-                        {{ $news->onEachSide(3)->links() }}
                     </div>
                 </div>
             </div>
