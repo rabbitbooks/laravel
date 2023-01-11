@@ -19,6 +19,13 @@
                             @csrf
                             @if($category->id) @method('PUT') @endif
                             <div class="form-group">
+                                @if ($errors->has('title'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach ($errors->get('title') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <label for="categoryName">Название категории</label>
                                 <input class="form-control" type="text" id="categoryName" name="title" value="{{ old('title') ?? $category->title}}">
                             </div>

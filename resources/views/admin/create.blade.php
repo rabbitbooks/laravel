@@ -38,11 +38,19 @@
                                     @foreach($categories as $item)
                                         <option
                                             @if ($item->id == old('category_id') ?? $item->id == $news->category_id) selected @endif
+<<<<<<< HEAD
                                             value="{{ $item->id }}">{{ $item->title }}
                                         </option>
 
                                     @endforeach
                                         <option value="23">error</option>
+=======
+                                        value="{{ $item->id }}">{{ $item->title }}
+                                        </option>
+
+                                    @endforeach
+                                    <option value="23">error</option>
+>>>>>>> l6
 
                                 </select>
 
@@ -62,7 +70,7 @@
 
                                     <input
                                         @if ($news->isPrivate == 1 || old('isPrivate')) checked @endif
-                                        name="isPrivate" type="checkbox" value="1">
+                                    name="isPrivate" type="checkbox" value="1">
                                     <label for="newsPrivate">Приватная</label>
                                 </div>
                             </div>

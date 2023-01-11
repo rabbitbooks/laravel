@@ -29,6 +29,7 @@ class NewsController extends Controller
     }
 
     public function store(NewsRequest $request, News $news) {
+<<<<<<< HEAD
 
         $request->validated();
 
@@ -46,10 +47,19 @@ class NewsController extends Controller
         $news->image = $url;
         $news->fill($request->all())->save();
 
+=======
+        $request->validated();
+
+        // $request->validate($news->rules(), [], $news->attributeNames());
+        // $request->validat();
+        //$this->validate($request, $news->rules());
+        ModelServices::prepareNewsData($request, $news);
+>>>>>>> l6
 
         return redirect()->route('news.show', $news->id)->with('success', 'Новость добавлена');
     }
 
+<<<<<<< HEAD
     public function update(Request $request, News $news) {
         $request->flash();
 
@@ -62,6 +72,15 @@ class NewsController extends Controller
         $news->image = $url;
         $news->fill($request->all())->save();
 
+=======
+    public function update(NewsRequest $request, News $news) {
+        $request->validated();
+
+        // $request->validate($news->rules(), [], $news->attributeNames());
+        // $request->validat();
+        //$this->validate($request, $news->rules());
+        ModelServices::prepareNewsData($request, $news);
+>>>>>>> l6
 
         return redirect()->route('news.show', $news->id)->with('success', 'Новость изменена');
     }
