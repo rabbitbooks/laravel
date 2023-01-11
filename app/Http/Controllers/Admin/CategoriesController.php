@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use function GuzzleHttp\Promise\all;
@@ -38,9 +39,9 @@ class CategoriesController extends Controller
      *
      * @param  Request  $request
      */
-    public function store(Request $request, Category $category)
+    public function store(CategoryRequest $request, Category $category)
     {
-        $request->flash();
+        $request->validated();
 
         $category->slug = str_slug($request->title);
         $category->fill($request->all())->save();

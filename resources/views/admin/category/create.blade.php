@@ -19,6 +19,13 @@
                             @csrf
                             @if($category->id) @method('PUT') @endif
                             <div class="form-group">
+                                @if ($errors->has('title'))
+                                    <div class="alert alert-danger" role="alert">
+                                        @foreach ($errors->get('title') as $error)
+                                            {{ $error }}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <label for="categoryName">Название категории</label>
                                 <input class="form-control" type="text" id="categoryName" name="title" value="{{ old('title') ?? $category->title}}">
                             </div>
@@ -26,8 +33,6 @@
                                 <input class="btn btn-outline-primary" type="submit" value="@if ($category->id){{__('Изменить')}}@else{{__('Добавить')}}@endif категорию">
                             </div>
                         </form>
-                        <br>
-                        {{ $news->onEachSide(3)->links() }}
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsRequest;
 use App\Models\Category;
 use App\Models\News;
 use App\Services\FileServices;
@@ -26,13 +27,23 @@ class NewsController extends Controller
         ]);
     }
 
-    public function store(Request $request, News $news) {
+    public function store(NewsRequest $request, News $news) {
+        $request->validated();
+
+        // $request->validate($news->rules(), [], $news->attributeNames());
+        // $request->validat();
+        //$this->validate($request, $news->rules());
         ModelServices::prepareNewsData($request, $news);
 
         return redirect()->route('news.show', $news->id)->with('success', 'Новость добавлена');
     }
 
-    public function update(Request $request, News $news) {
+    public function update(NewsRequest $request, News $news) {
+        $request->validated();
+
+        // $request->validate($news->rules(), [], $news->attributeNames());
+        // $request->validat();
+        //$this->validate($request, $news->rules());
         ModelServices::prepareNewsData($request, $news);
 
         return redirect()->route('news.show', $news->id)->with('success', 'Новость изменена');
