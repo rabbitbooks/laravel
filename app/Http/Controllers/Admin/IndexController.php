@@ -12,7 +12,21 @@ use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
-    public function index() {
+    public function ajax() {
+        return view('admin.ajax');
+    }
+
+    public function send(Request $request)
+    {
+
+
+        return response()->json([
+            'id' => $request->id,
+            'status' => 'ok'
+        ]);
+    }
+
+        public function index() {
 
         return view('admin.index');
     }

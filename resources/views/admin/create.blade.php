@@ -12,7 +12,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <form method="POST" action="@if (!$news->id){{ route('admin.news.store') }}@else{{ route('admin.news.update', $news) }}@endif" enctype="multipart/form-data">
+                        <form method="POST"
+                              action="@if (!$news->id){{ route('admin.news.store') }}@else{{ route('admin.news.update', $news) }}@endif"
+                              enctype="multipart/form-data">
                             @csrf
                             @if ($news->id) @method('PUT') @endif
                             <div class="form-group">
@@ -24,7 +26,8 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                <input type="text" name="title" id="newsTitle" class="form-control" value="{{ old('title') ?? $news->title }}">
+                                <input type="text" name="title" id="newsTitle" class="form-control"
+                                       value="{{ old('title') ?? $news->title }}">
 
                                 <label for="newsCategory">Категория новости</label>
                                 @if ($errors->has('category_id'))
@@ -36,14 +39,27 @@
                                 @endif
                                 <select name="category_id" id="newsCategory" class="form-control">
                                     @foreach($categories as $item)
-                                        <option
-                                            @if ($item->id == old('category_id') ?? $item->id == $news->category_id) selected @endif
 
+
+                                        @if (old('category_id'))
+
+                                            <option
+                                                @if ($item->id == old('category_id')) selected @endif
                                             value="{{ $item->id }}">{{ $item->title }}
-                                        </option>
+                                            </option>
+
+                                        @else
+
+                                            <option
+                                                @if ($item->id == $news->category_id) selected @endif
+                                            value="{{ $item->id }}">{{ $item->title }}
+                                            </option>
+
+                                        @endif
 
                                     @endforeach
-                                        <option value="23">error</option>
+                                    <option value="23">error</option>
+
                                 </select>
 
 
@@ -56,7 +72,8 @@
 
                                     </div>
                                 @endif
-                                <textarea name="text" id="newsText" class="form-control">{{ old('text')   ?? $news->text}}</textarea>
+                                <textarea name="text" id="newsText"
+                                          class="form-control">{{ old('text')   ?? $news->text}}</textarea>
 
                                 <div class="form-check">
 
@@ -81,7 +98,8 @@
                             </div>
 
                             <div class="form-group">
-                                <input class="btn btn-outline-primary" type="submit" value="@if ($news->id){{__('Изменить')}}@else{{__('Добавить')}}@endif новость">
+                                <input class="btn btn-outline-primary" type="submit"
+                                       value="@if ($news->id){{__('Изменить')}}@else{{__('Добавить')}}@endif новость">
                             </div>
                         </form>
                     </div>

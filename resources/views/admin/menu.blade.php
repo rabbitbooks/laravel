@@ -13,3 +13,11 @@
 <li class="nav-item">
     <a class="nav-link" href="{{ route('admin.test2') }}">download image</a>
 </li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.updateProfile') }}">Profile</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.ajax') }}">Ajax Test</a>
+</li>
