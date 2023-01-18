@@ -19,7 +19,11 @@
                             @if (!$news->isPrivate)
                                 <p>{{ $news->text}}</p>
                             @else
-                                Зарегистрируйтесь для просмотра
+                                @if ($isUser)
+                                    <p>{{ $news->text}}</p>
+                                @else
+                                    Зарегистрируйтесь для просмотра
+                                @endif
                             @endif
                         @else
                             Нет новости с таким id

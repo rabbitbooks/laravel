@@ -68,6 +68,7 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="{{ route('updateProfile') }}">{{ __('Profile') }}</a>
                                 </div>
                             </li>
                         @endguest
@@ -75,9 +76,6 @@
                 </div>
             </div>
         </nav>
-
-
-
         <main class="py-4">
 
             @if (session('success'))

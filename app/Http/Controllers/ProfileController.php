@@ -1,37 +1,38 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $errors = [];
         $user = Auth::user();
 
+
         if ($request->isMethod('post')) {
-
             $this->validate($request, $this->validateRules(), [], $this->attributeNames());
-
+            dump($request->isMethod);
             if (Hash::check($request->post('password'), $user->password)) {
-                $user->fill([
+                $var = $user->fill([
                     'name' => $request->post('name'),
-                    'password' => Hash::make($request->post('newPassword')),
+//                    $user->is_admin ?? 'password' => Hash::make($request->post('newPassword')),
                     'email' => $request->post('email')
                 ])->save();
-                return redirect()->route('admin.updateProfile')->withSuccess('Профиль успешно изменен!');
+dd($var);
+                return redirect()->route('updateProfile')->withSuccess('Профиль успешно изменен!');
             } else {
                 $errors['password'][] = 'Неверно введен текущий пароль';
-                return redirect()->route('admin.updateProfile')->withErrors($errors);
+//                dd('$var');
+                return redirect()->route('updateProfile')->withErrors($errors);
             }
-
         }
 
-        return view('admin.profile', [
+        return view('profile', [
             'user' => $user
         ]);
     }
