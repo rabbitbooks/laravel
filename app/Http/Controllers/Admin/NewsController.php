@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Storage;
 class NewsController extends Controller
 {
     public function index() {
+
+
         return view('admin.index', [
             'news' => News::all()
         ]);
@@ -27,9 +29,15 @@ class NewsController extends Controller
     }
 
     public function store(NewsRequest $request, News $news) {
-        $request->validated();
-        $url = null;
 
+        $request->validated();
+
+       // $request->validate($news->rules(), [], $news->attributeNames());
+           // $request->validat();
+        //$this->validate($request, $news->rules());
+
+
+        $url = null;
         if ($request->file('image')) {
             $path = Storage::putFile('public/img', $request->file('image'));
             $url = Storage::url($path);
@@ -38,12 +46,14 @@ class NewsController extends Controller
         $news->image = $url;
         $news->fill($request->all())->save();
 
+
         return redirect()->route('news.show', $news->id)->with('success', 'Новость добавлена');
     }
 
     public function update(NewsRequest $request, News $news) {
-        $url = null;
 
+
+        $url = null;
         if ($request->file('image')) {
             $path = Storage::putFile('public/img', $request->file('image'));
             $url = Storage::url($path);
@@ -58,14 +68,15 @@ class NewsController extends Controller
 
     public function destroy(News $news) {
         $news->delete();
-
         return redirect()->route('admin.index')->with('success', 'Новость удалена');
     }
 
     public function edit(News $news) {
+
         return view('admin.create',[
             'news' => $news,
             'categories' => Category::all()
         ]);
     }
+
 }

@@ -14,6 +14,18 @@
     <a class="nav-link" href="{{ route('about') }}">О нас</a>
 </li>
 
-<li class="nav-item {{ request()->routeIs('admin.index')?'active':'' }}">
-    <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('updateProfile') }}">Profile</a>
 </li>
+
+@guest()
+@else
+    @if (Auth::user()->is_admin)
+        <li class="nav-item {{ request()->routeIs('admin.index')?'active':'' }}">
+            <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
+        </li>
+    @endif
+@endguest
+
+
+

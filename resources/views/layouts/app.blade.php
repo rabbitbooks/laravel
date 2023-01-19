@@ -53,6 +53,7 @@
                                 </li>
                             @endif
                         @else
+                            <img src="{{ Auth::User()->avatar }}" width="40" alt="">
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
@@ -68,7 +69,6 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                    <a class="dropdown-item" href="{{ route('updateProfile') }}">{{ __('Profile') }}</a>
                                 </div>
                             </li>
                         @endguest
@@ -76,6 +76,9 @@
                 </div>
             </div>
         </nav>
+
+
+
         <main class="py-4">
 
             @if (session('success'))
