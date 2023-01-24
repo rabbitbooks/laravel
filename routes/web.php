@@ -25,7 +25,7 @@ use App\Http\Controllers\Admin\IndexController as AdminController;
 */
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
-
+Route::view('/about', 'about')->name('about');
 
 Route::name('news.')
     ->prefix('news')
@@ -50,21 +50,14 @@ Route::name('admin.')
 
         Route::get('/users', [UserController::class, 'index'])->name('updateUsers');
         Route::get('/users/toggleAdmin/{user}', [UserController::class, 'toggleAdmin'])->name('toggleAdmin');
-
         Route::get('/parser', [ParserController::class, 'index'])->name('parser');
-
         Route::get('/', [AdminNewsController::class, 'index'])->name('index');
         Route::get('/test1', [AdminController::class, 'test1'])->name('test1');
         Route::get('/test2', [AdminController::class, 'test2'])->name('test2');
         Route::resource('/news', AdminNewsController::class)->except('show');
-
     });
 
-
 Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('updateProfile');
-
-Route::view('/about', 'about')->name('about');
-
 Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vkLogin');
 Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkResponse');
 

@@ -46,6 +46,7 @@ class LoginController extends Controller
         if (Auth::check()) {
             return redirect()->route('home');
         }
+
         return Socialite::driver('vkontakte')->redirect();
     }
 
@@ -55,8 +56,13 @@ class LoginController extends Controller
 
             $userInSystem = $userRepository->getUserBySocId($user, 'vk');
             Auth::login($userInSystem);
-
         }
+
         return redirect()->route('home');
+    }
+
+    public function loginGithub()
+    {
+
     }
 }
