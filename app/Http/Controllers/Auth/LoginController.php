@@ -43,9 +43,7 @@ class LoginController extends Controller
     }
 
     public function loginVK() {
-        if (Auth::check()) {
-            return redirect()->route('home');
-        }
+        if (Auth::check()) return redirect()->route('home');
 
         return Socialite::driver('vkontakte')->redirect();
     }
@@ -53,7 +51,7 @@ class LoginController extends Controller
     public function responseVK(UserRepository $userRepository) {
         if (!Auth::check()) {
             $user = Socialite::driver('vkontakte')->user();
-
+            dd($user);
             $userInSystem = $userRepository->getUserBySocId($user, 'vk');
             Auth::login($userInSystem);
         }
@@ -63,6 +61,19 @@ class LoginController extends Controller
 
     public function loginGithub()
     {
+        if (Auth::check()) return redirect()->route('home');
 
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function responseGithub(UserRepository $userRepository) {
+        if (!Auth::check()) {
+            $user = Socialite::driver('github')->user();
+                dd($user);
+            $userInSystem = $userRepository->getUserBySocId($user, 'github');
+            Auth::login($userInSystem);
+        }
+
+        return redirect()->route('home');
     }
 }

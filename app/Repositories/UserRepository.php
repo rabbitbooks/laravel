@@ -16,7 +16,6 @@ class UserRepository
         if (is_null($userInSystem)) {
             $userInSystem = new User();
 
-
             $userInSystem->fill([
                 'name' => !empty($user->getNickname())? $user->getNickname():'',
                 'email' => !empty($user->getEmail())? $user->getEmail():'',
@@ -27,6 +26,7 @@ class UserRepository
                 'avatar' => !empty($user->getAvatar())? $user->getAvatar():'',
 
             ]);
+
             $userInSystem->save();
         }
 

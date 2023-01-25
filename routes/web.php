@@ -61,5 +61,8 @@ Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])-
 Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vkLogin');
 Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkResponse');
 
+Route::get('/auth/github', [LoginController::class, 'loginGithub'])->name('githubLogin');
+Route::get('/auth/github/response', [LoginController::class, 'responseGithub'])->name('githubResponse');
+
 Auth::routes();
 
