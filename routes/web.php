@@ -58,11 +58,11 @@ Route::name('admin.')
     });
 
 Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('updateProfile');
-Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vkLogin');
-Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkResponse');
 
-Route::get('/auth/github', [LoginController::class, 'loginGithub'])->name('githubLogin');
-Route::get('/auth/github/response', [LoginController::class, 'responseGithub'])->name('githubResponse');
+Route::get('/auth/social/{socialName}', [LoginController::class, 'loginSocial'])->name('socialLogin');
+
+Route::get('/auth/vk/response', [LoginController::class, 'responseVK']);
+Route::get('/auth/github/response?social=github', [LoginController::class, 'responseGithub']);
 
 Auth::routes();
 

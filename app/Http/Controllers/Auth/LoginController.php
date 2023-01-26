@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Repositories\UserRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -42,16 +41,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function loginVK() {
+    public function loginSocial($socNet) {
         if (Auth::check()) return redirect()->route('home');
 
-        return Socialite::driver('vkontakte')->redirect();
+        return Socialite::driver($socNet)->redirect();
     }
 
     public function responseVK(UserRepository $userRepository) {
         if (!Auth::check()) {
             $user = Socialite::driver('vkontakte')->user();
-            dd($user);
+
             $userInSystem = $userRepository->getUserBySocId($user, 'vk');
             Auth::login($userInSystem);
         }
@@ -59,17 +58,11 @@ class LoginController extends Controller
         return redirect()->route('home');
     }
 
-    public function loginGithub()
-    {
-        if (Auth::check()) return redirect()->route('home');
-
-        return Socialite::driver('github')->redirect();
-    }
 
     public function responseGithub(UserRepository $userRepository) {
         if (!Auth::check()) {
             $user = Socialite::driver('github')->user();
-                dd($user);
+
             $userInSystem = $userRepository->getUserBySocId($user, 'github');
             Auth::login($userInSystem);
         }

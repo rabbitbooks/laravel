@@ -53,8 +53,8 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
-                                <a href="{{ route('vkLogin') }}"><img src="vk.png" alt="" width="40"></a>
-                                <a href="{{ route('githubLogin') }}"><img src="github.png" alt="" width="40"></a>
+                                <a href="{{ route('socialLogin', 'vkontakte') }}"><img src="vk.png" alt="" width="40"></a>
+                                <a href="{{ route('socialLogin', 'github') }}"><img src="github.png" alt="" width="40"></a>
                             </div>
                         </div>
                         <div class="form-group row mb-0">
