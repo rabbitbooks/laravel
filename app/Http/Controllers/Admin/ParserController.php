@@ -3,26 +3,47 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\NewsParsing;
+use App\Models\News;
 use Illuminate\Http\Request;
 use Orchestra\Parser\Xml\Facade as XmlParser;
+use App\Services\XMLParserService;
 
 class ParserController extends Controller
 {
-    public function index() {
-        $xml = XMLParser::load('https://lenta.ru/rss');
-        $data = $xml->parse([
-            'title' => ['uses' => 'channel.title'],
-            'link' => ['uses' => 'channel.link'],
-            'description' => ['uses' => 'channel.description'],
-            'news' => ['uses' => 'channel.item[title,link,description,pubDate,enclosure::url,category]'],
-        ]);
-        foreach ($data['news'] as $news) {
-            dump($news);
-            // Получить категорию (с id)
-            // при необходимости добавить категорию в БД
-            // получить новость
-            // добавить id категории в новость
-            //help News::query()->firstOrCreate([])
+    public function index(XMLParserService $parserService) {
+        $rssLinks = [
+            'https://lenta.ru/rss/news',
+            'https://news.yandex.ru/auto.rss',
+            'https://news.yandex.ru/auto_racing.rss',
+            'https://news.yandex.ru/army.rss',
+            'https://news.yandex.ru/gadgets.rss',
+            'https://news.yandex.ru/index.rss',
+            'https://news.yandex.ru/martial_arts.rss',
+            'https://news.yandex.ru/communal.rss',
+            'https://news.yandex.ru/health.rss',
+            'https://news.yandex.ru/games.rss',
+            'https://news.yandex.ru/internet.rss',
+            'https://news.yandex.ru/cyber_sport.rss',
+            'https://news.yandex.ru/movies.rss',
+            'https://news.yandex.ru/cosmos.rss',
+            'https://news.yandex.ru/culture.rss',
+            'https://news.yandex.ru/championsleague.rss',
+            'https://news.yandex.ru/music.rss',
+            'https://news.yandex.ru/nhl.rss',
+            ];
+        $start = microtime(true);
+
+        foreach ($rssLinks as $link) {
+            NewsParsing::dispatch($link);
+           // $parserService->saveNews($link);
         }
+
+        $end = microtime(true);
+        dump($end - $start);
+
+        return view('admin.index', [
+            'news' => News::all()
+        ]);
     }
 }

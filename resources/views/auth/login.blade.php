@@ -44,6 +44,7 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -53,10 +54,12 @@
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
-                                <a href="{{ route('socialLogin', 'vkontakte') }}"><img src="vk.png" alt="" width="40"></a>
-                                <a href="{{ route('socialLogin', 'github') }}"><img src="github.png" alt="" width="40"></a>
+
+                                <a href="{{ route('vkLogin') }}"><img src="vk.png" alt="" width="40"></a>
+
                             </div>
-                        </div>
+                </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
