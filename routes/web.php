@@ -24,7 +24,7 @@ use App\Http\Controllers\Admin\IndexController as AdminController;
 |
 */
 
-Route::get('/', [IndexController::class, 'index'])->name('home');
+    Route::get('/', [IndexController::class, 'index'])->name('home');
 
 
 Route::name('news.')
