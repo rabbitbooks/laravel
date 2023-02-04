@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Storage;
 class NewsController extends Controller
 {
     public function index() {
-
-
         return view('admin.index', [
             'news' => News::all()
         ]);
