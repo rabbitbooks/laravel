@@ -55,7 +55,7 @@
                                     </label>
                                 </div>
 
-                                <a href="{{ route('vkLogin') }}"><img src="vk.png" alt="" width="40"></a>
+{{--                                <a href="{{ route('vkLogin') }}"><img src="vk.png" alt="" width="40"></a>--}}
 
                             </div>
                 </div>

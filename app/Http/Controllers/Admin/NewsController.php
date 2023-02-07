@@ -70,7 +70,6 @@ class NewsController extends Controller
     }
 
     public function edit(News $news) {
-
         return view('admin.create',[
             'news' => $news,
             'categories' => Category::all()

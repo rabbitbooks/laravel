@@ -71,8 +71,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth',
 
 Route::view('/about', 'about')->name('about');
 
-Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vkLogin');
-Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkResponse');
+//Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vkLogin');
+//Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkResponse');
 
 Auth::routes();
 
