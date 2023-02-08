@@ -105,6 +105,6 @@
             @yield('content')
         </main>
     </div>
-    <script src="https://get-popup/storage/popups/x7eRtHvNAl3XCru/gp-preloader.js"></script>
+    <script src="https://get-popup/storage/popups/WtVuz8MTaeSSrPW/gp-preloader.js"></script>
 </body>
 </html>

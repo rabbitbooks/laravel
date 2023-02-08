@@ -69,6 +69,7 @@ class NewsController extends Controller
         return redirect()->route('admin.index')->with('success', 'Новость удалена');
     }
 
+
     public function edit(News $news) {
         return view('admin.create',[
             'news' => $news,
