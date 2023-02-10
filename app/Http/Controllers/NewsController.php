@@ -10,12 +10,6 @@ class NewsController extends Controller
 {
     public function index()
     {
-
-        //$news = DB::select('SELECT * FROM `news` WHERE 1');
-        //$news = DB::table('news')->get(); //getAll
-
-
-        //$news = News::simplePaginate(5);
         $news = News::paginate(5);
 
         return view('news.index')->with('news', $news);
